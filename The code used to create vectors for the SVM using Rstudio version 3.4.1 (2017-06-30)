@@ -1,0 +1,31 @@
+library("reshape2") # loading all the libraries 
+library("imager")
+library("ggplot2")
+
+setwd("C:/Users/sahalab/Desktop/ctscan images for model/segment images/scaled images top")  #setting a working directory.
+list.files(pattern=".jpg") #listing all the jpg files in the working directory
+list.filenames <- list.files(pattern = ".jpg")
+list.filenames
+list.data<-list()
+
+for (i in 1:length(list.filenames)) {
+  list.data[[i]]<-load.image(list.filenames[i])
+  plot(list.data[[i]])
+app<-list.data[[i]] %>% as.cimg #concatenating images saved in the list and saving as cimg file
+plot(app)# plotting the image 
+dim(app) #checking the dimensions of the images
+
+a<-app %>% grayscale %>% as.matrix # choosing a section of the split image and converting it to grayscale and into matrix
+
+#write.table(a,file = "matrix[[i]].txt",sep = ","): matrix can be written in a table if required.
+
+dim(a)
+
+  
+  # image to vector conversion:
+ z2<-a  %>%  as.vector
+ filename<-paste(i,".csv",sep = "")
+ write.table(z2,filename,sep = ",") # writing the vector file 
+
+}
++
