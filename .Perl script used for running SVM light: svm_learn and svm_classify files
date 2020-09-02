@@ -1,0 +1,30 @@
+#!/usr/bin/perl
+#open(DATA1,">newresult.txt");
+#@g=qw(10 20 30);
+#@c=qw(1 10 20 30 40);@k=qw(1 2 3 4 5);
+
+
+#.....................................................RBF kernel.........................................................................
+
+#for($i1=0;$i1<@g;$i1++){# 1 loop for g value
+  # for($i2=0;$i2<@c;$i2++){# 2 loop for c value
+#for($i3=0;$i3<@k;$i3++){ #3loop for k value
+	    
+for($j=1;$j<9;$j++){# 4 loop 
+			    
+#print  DATA1 " -z c -t 2 -g $g[$i1] -c $c[$i2] -j $k[$i3] learning$j.dat  model$j.file"."\n";
+ #print "./svm_classify testing$j.dat  model$j.file output$j.file";
+
+      system("\svm_learn -z c -t 0 trainingset/trainingset$j.dat model/model$j");
+       system("\svm_classify testset/blindset.dat  model/model$j output/output$j");
+	
+  } # 4 loop 
+	 
+ # system "perl result2.pl $g[$i1] $c[$i2] $k[$i3]";
+# print $g[$i1]."\t".$c[$i2]."\t".$k[$i3]."\t"."\n";
+          
+# }# 3 loop for k value
+# }#2 loop for c value
+# }#1 loop for g value
+
+ #close(DATA1);
