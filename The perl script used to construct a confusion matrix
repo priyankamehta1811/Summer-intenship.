@@ -1,0 +1,52 @@
+
+    $tn=$tp=$fp=$fn=0;
+    open (FL,"C:/Users/sahalab/Desktop/ctscan images for model/output.dat");
+    while($line=<FL>){
+	chomp($line);
+
+	$c++;
+	$val=$line;
+	if($c>4){
+	    if($val >=$Threshold[$Thres]){
+		$tp++;
+           	    }
+          
+	    if($val < $Threshold[$Thres]){
+		$fn++;
+          
+	    }
+	}
+	if ($c<5){
+	
+	    if($val < $Threshold[$Thres]){
+		$tn++;
+         
+             	    }
+              if($val >= $Threshold[$Thres]){
+		$fp++;
+            
+	    }
+	}
+    }
+    close FL;
+    if($tp>0){
+        $truepositive=$tp;
+        $falsepositive=$fp;
+        $truenegative=$tn;
+        $falsenegative=$fn;
+
+	$sensitivity=$tp/($tp + $fn);
+	$specificity=$tn/($tn + $fp);
+	$accuracy=($tp+$tn)/($tp+$fp+$tn+$fn);
+	$ppv=($tp)/($tp+$fp);
+        $f1=2*($tp)/(2*$tp+$fp+$fn);
+       if($tp>0 && $fn>0 && $fp>0 && $tn>0){
+
+        $mcc= (($tp*$tn)-($fp*$fn))/(sqrt(($tp+$fp)*($tp+$fn)*($tn+$fp)*($tn+$fn)));
+        
+} 
+}
+    printf FO ("%-6.2f\t%-6.2f\t%-6.2f\t%-6.4f\t%-6.2f\t%-6.2f\t%-6.2f\t%-6.2f\t%-6.2f\t%-6.2f\t%-6.2f\n", $Threshold[$Thres],$sensitivity,$specificity,$accuracy,$ppv,$f1,$mcc,$truepositive,$falsepositive,$truenegative,$falsenegative);
+  }
+
+close FO;
