@@ -1,0 +1,25 @@
+use bignum;
+
+for($s=1;$s<14;$s++){ 
+  $outputfile="$s.dat";
+  open(FO,">>$outputfile");
+
+  open (FP1, "C:/Users/sahalab/Desktop/ctscan images for    model/vectors/vectors(bottom)/$s.csv") or die "error in opening input file 1\n";#path of the vector files 
+#skip first line;
+#$line1=<FP1>;
+  print FO "0"; # label for the support vector needs to be changed for different types of datasets 
+  $i=1;
+  while($line1=<FP1>){
+      chomp ($line1);
+
+     @descriptor=split(',',$line1);
+      $a=scalar(@descriptor);
+
+      for($j=1;$j<$a;$j++)
+         {
+          $k=$i-1;
+          print FO " ".$k.":".$descriptor[$j];
+        }
+
+     $i++;
+ }close(FP1);close(FO)}
